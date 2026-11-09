@@ -33,16 +33,49 @@ BinaryTree<T>::BinaryTree()
 template <class T>
 void BinaryTree<T>::add(T item)
 {
-	
+	if (root == nullptr)
+		root = new BSTNode<T>(item);
+	else
+		root->add(item);
 }
 template <class T>
 int BinaryTree<T>::count()
 {
+	if (root == nullptr)
+		return 0;
+	else
+		return root->count();
 	return 0;
 }
 template <class T>
 bool BinaryTree<T>::remove(T item)
 {
+	BSTNode<T>* parent = nullptr;
+	BSTNode<T>* toBeRemoved = root;
+	bool found = false;
+	while (!found && toBeRemoved != nullptr)
+	{
+		if (toBeRemoved->getItem() == item)
+		{
+			found = true;
+		}
+		else
+		{
+			parent = toBeRemoved;
+			if (item < toBeRemoved->getItem())
+			{
+				toBeRemoved = toBeRemoved->getLeft();
+			}
+			else
+			{
+				toBeRemoved = toBeRemoved->getRight();
+			}
+		}
+
+	}
+	if (found == false)
+		return false;
+
 	return false;
 }
 
