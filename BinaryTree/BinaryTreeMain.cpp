@@ -20,6 +20,12 @@ int main()
 	tree.add(7);
 	cout << tree.count() << endl;
 	printBT(tree.root);
+	cout << "Pre: ";
+	tree.printPreOrder();
+	cout << "Post: ";
+	tree.printPostOrder();
+	cout << "In-Order: ";
+	tree.printInOrder();
 
 	
 

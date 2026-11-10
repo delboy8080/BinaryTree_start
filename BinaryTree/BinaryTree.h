@@ -33,16 +33,98 @@ BinaryTree<T>::BinaryTree()
 template <class T>
 void BinaryTree<T>::add(T item)
 {
-	
+	if (root == nullptr)
+		root = new BSTNode<T>(item);
+	root->add(item);
 }
 template <class T>
 int BinaryTree<T>::count()
 {
-	return 0;
+	if (root == nullptr)
+		return 0;
+	return root->count();
 }
 template <class T>
 bool BinaryTree<T>::remove(T item)
 {
+	BSTNode<T>* parent = nullptr;
+	BSTNode<T>* toBeRemoved = root;
+	bool found=false;
+	while (found == false && toBeRemoved != nullptr)
+	{
+		if (item == toBeRemoved->getItem())
+		{
+			found = true;
+		}
+		else
+		{
+			parent = toBeRemoved;
+			if (item < toBeRemoved->getItem())
+			{
+				toBeRemoved = toBeRemoved->getLeft();
+			}
+			else
+			{
+				toBeRemoved = toBeRemoved->getRight();
+			}
+		}
+	}
+	if (!found)
+		return false;
+	if (toBeRemoved->getLeft() == nullptr || toBeRemoved->getRight() == nullptr)
+	{
+		BSTNode<T>* newChild = nullptr;
+		if (toBeRemoved->getLeft() == nullptr)
+		{
+			newChild = toBeRemoved->getRight();
+		}
+		else
+		{
+			newChild = toBeRemoved->getLeft();
+		}
+		if (toBeRemoved == root)
+		{
+			delete root;
+			root = newChild;
+		}
+		else
+		{
+			if (parent->getLeft() == toBeRemoved)
+			{
+				delete toBeRemoved;
+				parent->setLeft(newChild);
+			}
+			else
+			{
+				delete toBeRemoved;
+				parent->setRight(newChild);
+			}
+		}
+		return true;
+	}
+	else
+	{
+		BSTNode<T>* smallestParent = toBeRemoved;
+		BSTNode<T>* smallest = toBeRemoved->getRight();
+		while (smallest->getLeft() != nullptr)
+		{
+			smallestParent = smallest;
+			smallest = smallest->getLeft();
+		}
+		toBeRemoved->setItem(smallest->getItem());
+		if (smallestParent == toBeRemoved)
+		{
+			
+			smallestParent->setRight(smallest->getRight());
+			delete smallest;
+		}
+		else
+		{
+			smallestParent->setLeft(smallest->getRight());
+			delete smallest;
+		}
+		return true;
+	}
 	return false;
 }
 
@@ -106,7 +188,13 @@ Print a subtree using in order traversal
 template<class T>
 void BinaryTree<T>::printInOrder(BSTNode<T> *node)
 {
+	if (node != nullptr)
+	{
+		printInOrder(node->getLeft());
+		cout << node->getItem() << " ";
+		printInOrder(node->getRight());
 	
+	}
 	
 }
 /*
@@ -125,7 +213,12 @@ Print a subtree using post order traversal
 template<class T>
 void BinaryTree<T>::printPreOrder(BSTNode<T> *node)
 {
-
+	if (node != nullptr)
+	{
+		cout << node->getItem() << " ";
+		printPreOrder(node->getLeft());
+		printPreOrder(node->getRight());
+	}
 	
 }
 
@@ -144,6 +237,11 @@ void BinaryTree<T>::printPostOrder()
 template<class T>
 void BinaryTree<T>::printPostOrder(BSTNode<T> *node)
 {
-
+	if (node != nullptr)
+	{
+		printPostOrder(node->getLeft());
+		printPostOrder(node->getRight());
+		cout << node->getItem() << " ";
+	}
 	
 }

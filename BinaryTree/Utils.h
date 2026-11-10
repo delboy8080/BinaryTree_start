@@ -7,6 +7,7 @@ void printBT(const std::string& prefix, BSTNode<T>* node, bool isLeft)
 {
 	if (node != nullptr)
 	{
+		printBT(prefix + (isLeft ? "   " : "    "), node->getLeft(), true);
 		std::cout << prefix;
 
 		std::cout << (isLeft ? "<--" : ">--");
@@ -15,8 +16,8 @@ void printBT(const std::string& prefix, BSTNode<T>* node, bool isLeft)
 		std::cout << node->getItem() << std::endl;
 
 		// enter the next tree level - left and right branch
-		printBT(prefix + (isLeft ? "|   " : "    "), node->getLeft(), true);
-		printBT(prefix + (isLeft ? "|   " : "    "), node->getRight(), false);
+		
+		printBT(prefix + (isLeft ? "   " : "    "), node->getRight(), false);
 	}
 }
 /*
