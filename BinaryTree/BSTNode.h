@@ -27,8 +27,7 @@ public:
 template <class T>
 BSTNode<T>::~BSTNode()
 {
-	delete left;
-	delete right;
+
 }
 template <class T>
 T BSTNode<T>::getItem()

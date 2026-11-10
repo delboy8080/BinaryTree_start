@@ -75,8 +75,56 @@ bool BinaryTree<T>::remove(T item)
 	}
 	if (found == false)
 		return false;
-
-	return false;
+	if (toBeRemoved->getLeft() == nullptr || toBeRemoved->getRight() == nullptr)
+	{
+		BSTNode<T>* newChild;
+		if (toBeRemoved->getLeft() == nullptr)
+		{
+			newChild = toBeRemoved->getRight();
+		}
+		else
+		{
+			newChild = toBeRemoved->getLeft();
+		}
+		if (toBeRemoved == root)
+		{
+			delete root;
+			root = newChild;
+		}
+		else if (parent->getLeft() == toBeRemoved)
+		{
+			delete parent->getLeft();
+			parent->setLeft(newChild);
+		}
+		else
+		{
+			delete parent->getRight();
+			parent->setRight(newChild);
+		}
+		return true;
+	}
+	else
+	{
+		BSTNode<T>* smallestParent = toBeRemoved;
+		BSTNode<T>* smallest = toBeRemoved->getRight();
+		while (smallest->getLeft() != nullptr)
+		{
+			smallestParent = smallest;
+			smallest = smallest->getLeft();
+		}
+		toBeRemoved->setItem(smallest->getItem());
+		if (smallestParent == toBeRemoved)
+		{
+			smallestParent->setRight(smallest->getRight());
+		}
+		else
+		{
+			smallestParent->setLeft(smallest->getRight());
+		}
+		delete smallest;
+		return true;
+	}
+	
 }
 
 
