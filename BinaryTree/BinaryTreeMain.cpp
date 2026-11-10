@@ -20,6 +20,8 @@ int main()
 	tree.add(7);
 	cout << tree.count() << endl;
 	printBT(tree.root);
+	cout << "Pre-Order:";
+	tree.printPreOrder();
 
 	
 
