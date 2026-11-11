@@ -35,7 +35,8 @@ void BinaryTree<T>::add(T item)
 {
 	if (root == nullptr)
 		root = new BSTNode<T>(item);
-	root->add(item);
+	else
+		root->add(item);
 }
 template <class T>
 int BinaryTree<T>::count()
