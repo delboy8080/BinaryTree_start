@@ -33,7 +33,14 @@ BinaryTree<T>::BinaryTree()
 template <class T>
 void BinaryTree<T>::add(T item)
 {
-	
+	if (root == nullptr)
+	{
+		root = new BSTNode<T>(item);
+	}
+	else
+	{
+		root->add(item);
+	}
 }
 template <class T>
 int BinaryTree<T>::count()
