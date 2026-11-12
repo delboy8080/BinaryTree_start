@@ -45,11 +45,21 @@ void BinaryTree<T>::add(T item)
 template <class T>
 int BinaryTree<T>::count()
 {
-	return 0;
+	if (root == nullptr)
+		return 0;
+	else
+		return root->count();
 }
 template <class T>
 bool BinaryTree<T>::remove(T item)
 {
+	BSTNode<T>* toBeRemoved = root;
+	BSTNode<T>* parent = nullptr;
+	bool found = false;
+	while (found == false && toBeRemoved != nullptr)
+	{
+
+	}
 	return false;
 }
 
